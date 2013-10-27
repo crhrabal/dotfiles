@@ -128,15 +128,3 @@ alias lds='ldapsearch -xLLL'
 alias cloud='cd /cloudhome/crhrabal'
 alias shell='ssh -p 20110 crhrabal@shell.lcsee.wvu.edu'
 alias tnode='ssh -AX tnode001'
-
-#COPY KEYS
-if [ -f /home/crhrabal/.ssh/identity ]
-then
-	clear
-else
-	echo 'loading ssh keys from usb...'
-	echo
-	echo
-	ln -s /media/crhrabal/crhrabal/.ssh/identity ~/.ssh/identity
-	echo 'SSH KEYS LOADED'
-fi

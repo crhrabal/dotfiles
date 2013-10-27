@@ -32,7 +32,7 @@ fi
 result=`pgrep X`
 if [ $? -eq 0 ]; then 
     gsettings set org.gnome.desktop.background picture-uri file:///cloudhome/${USER}/startup/back.png
-    dconf write /org/compiz/profiles/unity/plugins/unityshell/icon-size 26
+    dconf write /org/compiz/profiles/unity/plugins/unityshell/icon-size 24
    fi
 
 ## create link to /cloudhome
@@ -48,7 +48,6 @@ if ! [ -h /home/${USER}/.emacs ]; then
     cp -r /cloudhome/${USER}/.emacs ~/
 fi
 
-
 ## remove useless files
 if [ -f /home/${USER}/Desktop/README.nohome ]; then
     rm /home/${USER}/Desktop/README.nohome
@@ -63,24 +62,6 @@ fi
 #    gsettings set org.gnome.desktop.interface icon-theme 'Faenza'
 #fi
 
-
-
-hostname=`echo ${HOSTNAME} | tr '[A-Z]' '[a-z]'`
-
-if [[ $hostname == cseesystems* ]]; then
-#Move netbeans files into place
-sudo cp /cloudhome/bmartin4/netbeans/launcher/netbeans.desktop /usr/share/applications
-sudo cp -r /cloudhome/bmartin4/netbeans/launcher/* /usr/share/icons/hicolor
-
-
-# Locally set unity launcher
-gsettings set com.canonical.Unity.Launcher favorites "['ubiquity-gtkui.desktop', 'nautilus-home.desktop', 'chromium-browser.desktop', 'gnome-terminal.desktop', 'pidgin.desktop','netbeans.desktop']"
-
-#Command used to recompile the schema change for the Unity launcher change, and to set workspaces
-sudo glib-compile-schemas /usr/share/glib-2.0/schemas/
-
-fi
-
 GIT=`git --version`
 if [ $? -eq 0 ]; then
     git config --global user.email "nyxcharon@gmail.com"
@@ -90,3 +71,42 @@ fi
 if ! [ -h /home/${USER}/.purple ]; then
     ln -s /cloudhome/${USER}/.purple /home/${USER}/.purple
 fi
+
+#COPY WALLPAPER
+if [ -f /home/crhrabal/pic1.png ]
+then
+	clear
+elif [ -f /cloudhome/crhrabal/pic1.png ]
+then
+	cp /cloudhome/crhrabal/pic1.png /home/crhrabal/
+elif [ -f /media/crhrabal/crhrabal ]
+then
+	cp /media/crhrabal/crhrabal/pic1.png /home/crhrabal/
+fi
+
+#DCONF
+gsettings set com.canonical.Unity.ApplicationsLens display-available-apps false
+gsettings set org.gnome.desktop.background picture-uri file:///home/crhrabal/pic1.png
+
+#LAUNCHER SIZE
+dconf write /org/compiz/profiles/unity/plugins/unityshell/icon-size 24
+
+#LAUNCHER FAVORITES
+#Add my default apps
+gsettings set com.canonical.Unity.Launcher favorites "['unity://expo-icon', 
+'application://nautilus.desktop', 
+'application://firefox.desktop', 
+'application://chromium-browser.desktop', 
+'application://thunderbird.desktop', 
+'application://gnome-terminal.desktop', 
+'application://gedit.desktop', 
+'application://libreoffice-writer.desktop', 
+'application://eclipse.desktop', 
+'application://emacs23.desktop', 
+'application://rhythmbox.desktop', 
+'application://synaptic.desktop', 
+'application://xchat.desktop', 
+'application://gnome-system-monitor.desktop', 
+'application://gnome-control-center.desktop', 
+'unity://devices', 
+'unity://running-apps']"

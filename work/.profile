@@ -54,12 +54,21 @@ if [ $? -eq 0 ]; then
 fi
 
 #COPY WALLPAPER
-if [ -f /home/crhrabal/pic1.png ]; then
-	clear
-elif [ -f /cloudhome/crhrabal/pic1.png ]; then
-	cp /cloudhome/crhrabal/pic1.png /home/crhrabal/
-elif [ -f /media/crhrabal/crhrabal ]; then
-	cp /media/crhrabal/crhrabal/pic1.png /home/crhrabal/
+if [ ! -f /home/crhrabal/pic1.png ]; then
+	if [ -f /cloudhome/crhrabal/pic1.png ]; then
+		cp /cloudhome/crhrabal/pic1.png /home/crhrabal/
+	elif [ -f /media/crhrabal/crhrabal ]; then
+		cp /media/crhrabal/crhrabal/pic1.png /home/crhrabal/
+	fi
+fi
+
+#SSH KEYS
+if [ ! -f ~/.ssh]; then
+	mkdir ~/.ssh
+fi
+if [ ! -f ~/.ssh/identity]; then
+	ln -s /media/crhrabal/crhrabal/.ssh/identity ~/.ssh/identity
+	ssh-add
 fi
 
 #DCONF

@@ -28,13 +28,6 @@ if [ -f /etc/xdg/autostart/gnome-keyring-ssh.desktop ]; then
     echo "X-GNOME-Autostart-enabled=false" >> ~/.config/autostart/gnome-keyring-ssh.desktop
 fi
 
-## set background
-result=`pgrep X`
-if [ $? -eq 0 ]; then 
-    gsettings set org.gnome.desktop.background picture-uri file:///cloudhome/${USER}/startup/back.png
-    dconf write /org/compiz/profiles/unity/plugins/unityshell/icon-size 24
-   fi
-
 ## create link to /cloudhome
 if ! [ -h /home/${USER}/cloud ]; then
     ln -s /cloudhome/${USER}/ /home/${USER}/cloud
@@ -66,10 +59,6 @@ GIT=`git --version`
 if [ $? -eq 0 ]; then
     git config --global user.email "nyxcharon@gmail.com"
     git config --global user.name "nyxcharon"
-fi
-
-if ! [ -h /home/${USER}/.purple ]; then
-    ln -s /cloudhome/${USER}/.purple /home/${USER}/.purple
 fi
 
 #COPY WALLPAPER

@@ -33,14 +33,6 @@ if ! [ -h /home/${USER}/cloud ]; then
     ln -s /cloudhome/${USER}/ /home/${USER}/cloud
 fi
 
-##Emacs stuff
-if ! [ -h /home/${USER}/.emacs.d ]; then
-    cp -r /cloudhome/${USER}/.emacs.d ~/
-fi
-if ! [ -h /home/${USER}/.emacs ]; then
-    cp -r /cloudhome/${USER}/.emacs ~/
-fi
-
 ## remove useless files
 if [ -f /home/${USER}/Desktop/README.nohome ]; then
     rm /home/${USER}/Desktop/README.nohome
@@ -57,19 +49,16 @@ fi
 
 GIT=`git --version`
 if [ $? -eq 0 ]; then
-    git config --global user.email "nyxcharon@gmail.com"
-    git config --global user.name "nyxcharon"
+    git config --global user.email "crhrabal@mix.wvu.edu"
+    git config --global user.name "crhrabal"
 fi
 
 #COPY WALLPAPER
-if [ -f /home/crhrabal/pic1.png ]
-then
+if [ -f /home/crhrabal/pic1.png ]; then
 	clear
-elif [ -f /cloudhome/crhrabal/pic1.png ]
-then
+elif [ -f /cloudhome/crhrabal/pic1.png ]; then
 	cp /cloudhome/crhrabal/pic1.png /home/crhrabal/
-elif [ -f /media/crhrabal/crhrabal ]
-then
+elif [ -f /media/crhrabal/crhrabal ]; then
 	cp /media/crhrabal/crhrabal/pic1.png /home/crhrabal/
 fi
 
